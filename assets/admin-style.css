@@ -1,0 +1,613 @@
+/*
+ * ====================================================================================
+ * ----------------------------------------------------------------------------------
+ *  The WordPress plugin is built for the iOli Seo® Shortener Link that can bought from 
+ *  iOli Seo®. This will not work with any other URL shorteners and I will not 
+ *  implement it to other scripts.
+ *
+ *  Version 1.5
+ *  Copyright (c) 2015 iOli Seo® - https://ioli.ru/v1/
+ * ----------------------------------------------------------------------------------
+ * ====================================================================================
+ */
+
+
+/*! jQuery UI - v1.10.4 - 2014-04-29
+* http://jqueryui.com
+* Includes: jquery.ui.core.css, jquery.ui.resizable.css, jquery.ui.selectable.css, jquery.ui.tabs.css, jquery.ui.theme.css
+* To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Verdana%2CArial%2Csans-serif&fwDefault=normal&fsDefault=1.1em&cornerRadius=4px&bgColorHeader=cccccc&bgTextureHeader=highlight_soft&bgImgOpacityHeader=75&borderColorHeader=aaaaaa&fcHeader=222222&iconColorHeader=222222&bgColorContent=ffffff&bgTextureContent=flat&bgImgOpacityContent=75&borderColorContent=aaaaaa&fcContent=222222&iconColorContent=222222&bgColorDefault=e6e6e6&bgTextureDefault=glass&bgImgOpacityDefault=75&borderColorDefault=d3d3d3&fcDefault=555555&iconColorDefault=888888&bgColorHover=dadada&bgTextureHover=glass&bgImgOpacityHover=75&borderColorHover=999999&fcHover=212121&iconColorHover=454545&bgColorActive=ffffff&bgTextureActive=glass&bgImgOpacityActive=65&borderColorActive=aaaaaa&fcActive=212121&iconColorActive=454545&bgColorHighlight=fbf9ee&bgTextureHighlight=glass&bgImgOpacityHighlight=55&borderColorHighlight=fcefa1&fcHighlight=363636&iconColorHighlight=2e83ff&bgColorError=fef1ec&bgTextureError=glass&bgImgOpacityError=95&borderColorError=cd0a0a&fcError=cd0a0a&iconColorError=cd0a0a&bgColorOverlay=aaaaaa&bgTextureOverlay=flat&bgImgOpacityOverlay=0&opacityOverlay=30&bgColorShadow=aaaaaa&bgTextureShadow=flat&bgImgOpacityShadow=0&opacityShadow=30&thicknessShadow=8px&offsetTopShadow=-8px&offsetLeftShadow=-8px&cornerRadiusShadow=8px
+* Copyright 2014 jQuery Foundation and other contributors; Licensed MIT */
+
+/* Imports */
+
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css);
+
+
+
+
+/* Icons
+----------------------------------*/
+
+/* states and images */
+.ui-icon {
+	display: block;
+	text-indent: -99999px;
+	overflow: hidden;
+	background-repeat: no-repeat;
+}
+
+
+/* Misc visuals
+----------------------------------*/
+
+/* Overlays */
+.ui-widget-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.ui-resizable {
+	position: relative;
+}
+.ui-resizable-handle {
+	position: absolute;
+	font-size: 0.1px;
+	display: block;
+}
+.ui-resizable-disabled .ui-resizable-handle,
+.ui-resizable-autohide .ui-resizable-handle {
+	display: none;
+}
+.ui-resizable-n {
+	cursor: n-resize;
+	height: 7px;
+	width: 100%;
+	top: -5px;
+	left: 0;
+}
+.ui-resizable-s {
+	cursor: s-resize;
+	height: 7px;
+	width: 100%;
+	bottom: -5px;
+	left: 0;
+}
+.ui-resizable-e {
+	cursor: e-resize;
+	width: 7px;
+	right: -5px;
+	top: 0;
+	height: 100%;
+}
+.ui-resizable-w {
+	cursor: w-resize;
+	width: 7px;
+	left: -5px;
+	top: 0;
+	height: 100%;
+}
+.ui-resizable-se {
+	cursor: se-resize;
+	width: 12px;
+	height: 12px;
+	right: 1px;
+	bottom: 1px;
+}
+.ui-resizable-sw {
+	cursor: sw-resize;
+	width: 9px;
+	height: 9px;
+	left: -5px;
+	bottom: -5px;
+}
+.ui-resizable-nw {
+	cursor: nw-resize;
+	width: 9px;
+	height: 9px;
+	left: -5px;
+	top: -5px;
+}
+.ui-resizable-ne {
+	cursor: ne-resize;
+	width: 9px;
+	height: 9px;
+	right: -5px;
+	top: -5px;
+}
+.ui-selectable-helper {
+	position: absolute;
+	z-index: 100;
+	border: 1px dotted black;
+}
+.ui-tabs {
+	position: relative;/* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+	padding: .2em;
+}
+.ui-tabs .ui-tabs-nav {
+	margin: 0;
+	padding: .2em .2em 0;
+}
+.ui-tabs .ui-tabs-nav li {
+	list-style: none;
+	float: left;
+	position: relative;
+	top: 0;
+	margin: 1px .2em 0 0;
+	border-bottom-width: 0;
+	padding: 0;
+	white-space: nowrap;
+}
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+	float: left;
+	padding: .5em 1em;
+	text-decoration: none;
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-active {
+	margin-bottom: -1px;
+	padding-bottom: 1px;
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor,
+.ui-tabs .ui-tabs-nav li.ui-state-disabled .ui-tabs-anchor,
+.ui-tabs .ui-tabs-nav li.ui-tabs-loading .ui-tabs-anchor {
+	cursor: text;
+}
+.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active .ui-tabs-anchor {
+	cursor: pointer;
+}
+.ui-tabs .ui-tabs-panel {
+	display: block;
+	border-width: 0;
+	padding: 1em 1.4em;
+	background: none;
+}
+
+
+
+/* Overlays */
+
+.ui-tabs {
+    border-color: #ddd;
+}
+
+.ui-tabs-nav {
+    background-image: none;
+    background-color: #fff;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+    border-radius: 0;
+}
+
+#admin-header {
+    text-align: left;
+    background-color: #f4f4f4;
+    padding: 5px;
+    padding-left: 15px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+#admin-header a {
+    margin-right: 15px;
+}
+
+/* Admin header */
+#admin-header-new {
+    text-align: left;
+    background-color: #332D39;
+    padding: 10px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    xheight: 110px;
+}
+
+#admin-header-new a {
+    text-decoration: none;
+    font-family: "Montserrat",sans-serif;
+    color: white;
+    letter-spacing: 0.2em;
+}
+
+#admin-header-new a:hover {
+    color: #F64747;
+}
+
+/* Admin header for extensions */
+#admin-header-ext {
+    text-align: left;
+    background-color: #fff;
+    padding: 10px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    float: right;
+    width: 300px;
+}
+
+#admin-header-ext a {
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+#admin-path {
+
+}
+
+#admin-nav {
+    margin-bottom: 15px;
+}
+
+#admin-title {
+}
+
+.admin-separator {
+    clear: both;
+    height: 5px;
+}
+
+/*
+.wrap, .wrap td, .wrap th, .wrap input, .wrap textarea {
+    font-size: 13px;
+    font-family: sans-serif;
+    line-height: 130%;
+}
+*/
+
+.wrap select {
+    height: auto;
+    vertical-align: initial;
+}
+.wrap {
+    background-color: white;
+    padding: 10px;
+}
+
+.wrap td a {
+    text-decoration: underline;
+}
+
+.main-index a {
+    font-weight: bold;
+}
+
+.wrap h2 {
+}
+
+.wrap h3 {
+}
+
+.wrap h4 {
+}
+
+.wrap h5 {
+
+}
+
+.wrap ul li {
+    margin-left: 20px;
+    list-style-type: disc;
+}
+
+.form-table {
+    background-color: #fff;
+}
+
+.form-table th {
+    text-align: right;
+    font-weight: bold;
+    border-right: 1px solid #ddd;
+    max-width: 50px;
+    color: #000000;
+}
+.form-table th small {
+    font-weight: normal;
+}
+
+.widefat th {
+    text-align: left;
+}
+
+
+p.submit {
+    margin-top: 5px;
+    padding: 5px;
+}
+
+.bordered-table {
+    border-collapse: collapse;
+}
+
+.bordered-table td, .bordered-table th {
+    border: 1px solid #ccc;
+    padding: 3px;
+}
+
+.admin-button {
+    font-size: 15px;
+	color: #0088cc;
+}
+table.clicks td {
+    border: 1px solid #666;
+    padding: 2px;
+    font-size: 10px;
+}
+
+table.clicks {
+    border-collapse: collapse;
+}
+
+.grid {
+    border-collapse: collapse;
+}
+.grid td, .grid th {
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin: 0;
+}
+.grid th {
+    background-color: #aaa;
+}
+
+.form-table textarea {
+    width: 100%;
+}
+
+.hints {
+    xborder: 1px solid #e4e4ee;
+    xbackground-color: #f4f4ff;
+    xpadding: 5px;
+    margin-top: 10px;
+    xborder-radius: 4px 4px;
+    font-size: 13px;
+    color: #666;
+    font-style: italic;
+    xbackground-color: #fcf8e3;
+    xborder-color: #faebcc;
+}
+
+.intro {
+    font-size: 11px;
+    margin: 6px 6px 8px;
+}
+
+.inside p, .inside li {
+    font-size: 12px;
+    margin: 10px;
+}
+
+.inside ul {
+    list-style-type: circle;
+    list-style-position: inside;
+}
+
+.admin-badge {
+    color: #fff;
+    background-color: #666;
+    border-radius: 5px;
+    padding: 1px 5px;
+}
+
+.admin-checkbox-group, .nl-checkbox-group {
+    float: left;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    background-color: #f4f4f4;
+    margin-bottom: 5px;
+    padding: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* Checkbox group */
+.admin-checkboxes-item {
+    float: left;
+    margin-right: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background-color: #f4f4f4;
+    width: 150px;
+    margin-bottom: 5px;
+    padding: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.admin-checkboxes-item input {
+    vertical-align: text-bottom;
+}
+
+.admin-checkboxes-item label {
+    display: inline;
+}
+
+.admin-preferences-item {
+    float: left;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    background-color: #f4f4f4;
+    width: 200px;
+    margin-bottom: 5px;
+    padding: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.admin-preferences-item label {
+    display: inline;
+}
+
+.form-table td .nl-checkbox-group label {
+    display: inline;
+}
+
+.ui-tabs .ui-tabs-nav li a {
+    font-size: 12px;
+}
+
+
+
+.widefat td, .widefat th {
+    vertical-align: middle;
+}
+
+/*
+.form-table td label {
+  font-size: 10px;
+  display: block;
+}
+*/
+
+.notice {
+    padding-right: 70px;
+    position: relative;
+}
+
+.notice a.dismiss {
+    display: block;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 20px;
+    text-decoration: none;
+    color: #666;
+}
+
+.admin-message {
+    background-color: #efe;
+    border-color: #393;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 3px;
+    padding: .6em;
+    margin-bottom: .6em;
+}
+
+.admin-error-span {
+    color: #f00;
+    font-weight: bold;
+}
+
+.admin-error {
+    background-color: #fee;
+    border-color: #933;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 2px;
+    padding: .6em;
+    margin-bottom: .6em;
+}
+
+.admin-error strong, .admin-message strong {
+    font-weight: bold;
+}
+
+#admin-warnings {
+    background-color: #FFEBE8;
+    border-color: #C00;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    padding: .6em;
+    margin-bottom: .6em;
+}
+
+.admin-buttons {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.admin-buttons-bottom {
+}
+
+.admin-buttons-top {
+}
+
+
+
+
+.admin-paginator {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.admin-option-grid th {
+    text-align: right;
+    width: auto;
+    border: 0;
+    padding: 3px;
+    font-weight: normal;
+    vertical-align: top;
+    padding-right: 15px;
+}
+.admin-option-grid td {
+    border: 0;
+    padding: 3px;
+    vertical-align: top;
+}
+
+.admin-box {
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #fafafa;
+    margin-bottom: 15px;
+}
+
+.admin-box h3 {
+    margin-top: 0;
+}
+
+
+
+/* CSS General Font Styles */
+
+.wrap p {
+    font-family: "Montserrat";
+    font-weight: 400;
+}
+#tabs h3 {
+    color: #222;
+    font-size: 1.3em;
+    margin: 1em 0;
+    font-family: "Montserrat";
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    border-bottom: 1px solid black;
+    padding: 10px;
+}
+
+p.description {
+    font-size: 12px !important;
+}
+
+
+/* CSS Themes Preview */
+
+.tnp-theme-preview {
+    display: block;
+    float: left;
+    text-align: center;
+}
+
+.tnp-theme-preview p {
+    font-family: "Montserrat";
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.tnp-theme-preview img:hover {
+    border: 5px solid #FD5F65;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #FD5F65;
+}
+
+.tnp-theme-preview img {
+    border: 5px solid transparent;
+    border-radius: 10px;
+    padding: 5px;
+}
+
